@@ -1,1 +1,2 @@
+[servers]
 remoteEc2 ansible_host=44.210.121.254 ansible_user=ubuntu ansible_connection=ssh ansible_private_key_file=~/.ssh/ansible.pem
