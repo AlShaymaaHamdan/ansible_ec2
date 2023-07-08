@@ -25,9 +25,7 @@ jobs:
       - run:
           name: Run Ansible playbook
           command: |
-            ansible all -m ping
-            sudo docker ps
-          # ansible-playbook -i inventory.yml --private-key=$HOME/.ssh/aws main.yml
+            ansible-playbook -i inventory.yml --private-key=$HOME/.ssh/aws main.yml
       # - run:
       #     name: Build and push Docker image
       #     command: |
