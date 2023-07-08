@@ -1,0 +1,39 @@
+version: 2.1     
+orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
+jobs:
+  test:
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+      - add_ssh_keys:
+          fingerprints:
+            - "29:ea:02:76:7f:b8:10:e7:ed:55:45:f5:d9:84:6a:8c"
+            - "1f:33:03:cc:a9:50:72:57:f2:68:29:20:2c:12:37:8e"
+  deploy:
+    docker: 
+      - image: docker:stable
+    steps:
+      - run: Install Ansible
+        command: pip install --upgrade pip && pip install ansible
+
+      - run: run ansible playbook
+        command: ansible all -m ping -i inventory.yaml
+  
+      // - run:
+      //     name: Login to AWS and run the Image
+      //     command: |
+      //         ssh -o "StrictHostKeyChecking no" -i "net-task.pem" ubuntu@ec2-34-227-108-64.compute-1.amazonaws.com " ssh -o 'StrictHostKeyChecking no' -i "net-task.pem" ubuntu@172.16.2.138 ' aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 564162621498.dkr.ecr.us-east-1.amazonaws.com &&
+      //         sudo docker run -d -p 3000:3000 --name test 564162621498.dkr.ecr.us-east-1.amazonaws.com/cicd:lts '"
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
+      - deploy:
+          requires: 
+            - aws-ecr/build-and-push-image
