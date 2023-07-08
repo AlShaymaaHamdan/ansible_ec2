@@ -16,11 +16,13 @@ jobs:
     docker: 
       - image: docker:stable
     steps:
-      - run: Install Ansible
-        command: pip install --upgrade pip && pip install ansible
+      - run: 
+          name: Install Ansible
+          command: pip install --upgrade pip && pip install ansible
 
-      - run: run ansible playbook
-        command: ansible all -m ping -i inventory.yaml
+      - run: 
+          name: run ansible playbook
+          command: ansible all -m ping -i inventory.yaml
   
       // - run:
       //     name: Login to AWS and run the Image
