@@ -35,7 +35,7 @@ jobs:
 
       - run:
           name: run container 
-          command: sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM
+          command: ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
 
 workflows:
   version: 2
