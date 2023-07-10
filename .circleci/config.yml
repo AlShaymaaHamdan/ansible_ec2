@@ -7,30 +7,25 @@ jobs:
             - "6d:74:fa:05:28:84:73:d2:3b:2b:bf:cd:78:a2:6b:98"
   build:
     docker:
-      - image: cimg/node:19.8.1
+      - image: aseelibrahim/docker-ansible:lts
     steps:
       - checkout
       - setup_remote_docker
+
+
       - run:
-          name: Install Ansible
+          name: Build and push Docker image
           command: |
-            sudo apt-get update && sudo apt-get install -y ansible
+            sudo docker build -t $username/nodeapp_ansible:$CIRCLE_BUILD_NUM . 
+            sudo docker login -u $username -p $user
+            sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM 
+            
       - run:
           name: Run Ansible playbook
           command: |
-            ansible-playbook -i inventory.yaml --private-key=$HOME/.ssh/aws main.yaml
+            ansible-playbook -i inventory.yaml --private-key=$HOME/.ssh/aws -e "CIRCLE_BUILD_NUM=$CIRCLE_BUILD_NUM username=$username" main.yaml 
             
-      # - run:
-      #     name: Build Docker image
-      #     command: |
-      #       sudo docker build -t $username/nodeapp_ansible_try:v1 . 
-      #       sudo docker login -u $username -p $user
-      #       sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM 
-
-      # - run:
-      #     name: run container 
-      #     command: ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
-
+  
 workflows:
   version: 2
   build-deploy:
