@@ -53,8 +53,8 @@
    - name: Create container
      docker_container:
        name: "node{{ item }}"
-       image: shaymaa12/nodeapp_ansible
+       image: shaymaa12/nodeapp_ansible:46
        state: present
        ports:
          - "3000:3000"
-   #   with_sequence: count={{ containers }}
+
