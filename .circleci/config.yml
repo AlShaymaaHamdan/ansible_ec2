@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Run Ansible playbook
           command: |
-            ansible-playbook -i inventory.yaml main.yaml
+            ansible-playbook -i inventory.yaml --private-key=$HOME/.ssh/aws main.yaml
       # - run:
       #     name: Build and push Docker image
       #     command: |
