@@ -30,7 +30,7 @@
        name: docker
    
    - name: Copy Dockerfile
-      copy: src=Dockerfile dest=/tmp/path/
+     copy: src=Dockerfile dest=/tmp/path/
       
    - name: build dockerfile
      docker_image:
