@@ -47,12 +47,12 @@
           
    - name: Pull Docker image
      docker_image:
-       name: shaymaa12/nodeapp_ansible
+       name: shaymaa12/nodeapp_ansible:46
        source: pull
 
    - name: Create container
      docker_container:
-       name: "node{{ item }}"
+       name: "node"
        image: shaymaa12/nodeapp_ansible:46
        state: present
        ports:
