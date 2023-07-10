@@ -17,13 +17,13 @@
 
    - name: Pull Docker image
      docker_image:
-       name: shaymaa12/nodeapp_ansible:46
+       name: {{ username }}/nodeapp_ansible:{{ CIRCLE_BUILD_NUM }}
        source: pull
 
    - name: Create container
      docker_container:
        name: "node"
-       image: shaymaa12/nodeapp_ansible:46
+       image: {{ username }}/nodeapp_ansible:{{ CIRCLE_BUILD_NUM }}
        state: present
        ports:
          - "3000:3000"
