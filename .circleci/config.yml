@@ -20,10 +20,10 @@ jobs:
           command: |
             ansible-playbook -i inventory.yaml --private-key=$HOME/.ssh/aws main.yaml
             
-      - run:
-          name: Build Docker image
-          command: |
-            sudo docker build -t $username/nodeapp_ansible_try:v1 . 
+      # - run:
+      #     name: Build Docker image
+      #     command: |
+      #       sudo docker build -t $username/nodeapp_ansible_try:v1 . 
       #       sudo docker login -u $username -p $user
       #       sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM 
 
