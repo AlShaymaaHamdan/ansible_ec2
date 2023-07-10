@@ -1,5 +1,5 @@
 ---
-- hosts: remoteEc2
+- hosts: aws
   become: true
   vars_files:
    - vars.yaml
