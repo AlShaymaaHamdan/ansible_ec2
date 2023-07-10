@@ -1,5 +1,5 @@
 ---
-- hosts: remotec2
+- hosts: remoteEc2
   become: true
   vars_files:
    - vars.yaml
