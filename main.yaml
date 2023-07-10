@@ -32,11 +32,11 @@
    # - name: Copy Dockerfile
    #   copy: src=Dockerfile dest=/tmp/path/
       
-   - name: build dockerfile
-     docker_image:
-      path: .
-      name: shaymaa12/nodeapp_ansible_try
-      tag: v1
+   # - name: build dockerfile
+   #   docker_image:
+   #    path: .
+   #    name: shaymaa12/nodeapp_ansible_try
+   #    tag: v1
 
     # - name: Tag and push to docker hub
     #   docker_image:
@@ -45,15 +45,16 @@
     #     tag: v1
     #     push: yes
           
-   # - name: Pull default Docker image
-   #   docker_image:
-   #     name: "{{ container_image }}"
-   #     source: pull
+   - name: Pull Docker image
+     docker_image:
+       name: shaymaa12/nodeapp_ansible
+       source: pull
 
-   # - name: Create default containers
-   #   docker_container:
-   #     name: "{{ container_name }}{{ item }}"
-   #     image: "{{ container_image }}"
-   #     command: "{{ container_command }}"
-   #     state: present
+   - name: Create container
+     docker_container:
+       name: "node{{ item }}"
+       image: shaymaa12/nodeapp_ansible
+       state: present
+         ports:
+           - "3000:3000"
    #   with_sequence: count={{ containers }}
