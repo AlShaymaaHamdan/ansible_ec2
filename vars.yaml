@@ -1,5 +1,3 @@
 ---
-containers: 1
-container_name: docker_ubuntu
-container_image: ubuntu:18.04
-container_command: sleep 1d
+docker_username: shaymaa12
+docker_pass: dckr_pat_iImg4MiF3lh4Jy-tryd3vcYjRsg
