@@ -19,16 +19,16 @@ jobs:
           name: Run Ansible playbook
           command: |
             ansible-playbook -i inventory.yaml main.yaml
-      - run:
-          name: Build and push Docker image
-          command: |
-            sudo docker build -t $username/nodeapp_ansible:$CIRCLE_BUILD_NUM . 
-            sudo docker login -u $username -p $user
-            sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM 
+      # - run:
+      #     name: Build and push Docker image
+      #     command: |
+      #       sudo docker build -t $username/nodeapp_ansible:$CIRCLE_BUILD_NUM . 
+      #       sudo docker login -u $username -p $user
+      #       sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM 
 
-      - run:
-          name: run container 
-          command: ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
+      # - run:
+      #     name: run container 
+      #     command: ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
 
 workflows:
   version: 2
