@@ -28,8 +28,8 @@
    - name: Install Docker Module for Python
      pip:
        name: docker
-
-    - name: Copy Dockerfile
+   
+   - name: Copy Dockerfile
       copy: src=Dockerfile dest=/tmp/path/
       
    - name: build dockerfile
