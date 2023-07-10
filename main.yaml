@@ -29,12 +29,12 @@
      pip:
        name: docker
    
-   - name: Copy Dockerfile
-     copy: src=Dockerfile dest=/tmp/path/
+   # - name: Copy Dockerfile
+   #   copy: src=Dockerfile dest=/tmp/path/
       
    - name: build dockerfile
      docker_image:
-      path: /tmp/path/
+      path: .
       name: shaymaa12/nodeapp_ansible_try
       tag: v1
 
