@@ -1,17 +1,10 @@
 version: 2
-# orbs:
-#   ansible: circleci/ansible@0.1.6
-
 jobs:
   deploy-job:
     steps:
       - add_ssh_keys:
           fingerprints:
             - "6d:74:fa:05:28:84:73:d2:3b:2b:bf:cd:78:a2:6b:98"
-  # test:
-  #   docker:
-  #     - image: docker:stable
-
   build:
     docker:
       - image: cimg/node:19.8.1
@@ -29,22 +22,19 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM &&
-            sudo docker build -t $username/nodeapp_ansible:$CIRCLE_BUILD_NUM . &&
+            ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker build -t $username/nodeapp_ansible:$CIRCLE_BUILD_NUM . &&      
             sudo docker login -u $username -p $user &&
-            sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
+            sudo docker push $username/nodeapp_ansible:$CIRCLE_BUILD_NUM &&
+            sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
 
-      - run:
-          name: run container 
-          command: ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
+      # - run:
+      #     name: run container 
+      #     command: ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-231-210-152.compute-1.amazonaws.com " sudo docker run -d -p 3000:3000 --name test $username/nodeapp_ansible:$CIRCLE_BUILD_NUM"
 
 workflows:
   version: 2
   build-deploy:
     jobs:
-      # - test
       - build:
           context:
             - DockerHub
-          # requires:
-          #   - test
