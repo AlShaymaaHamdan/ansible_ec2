@@ -29,6 +29,22 @@
      pip:
        name: docker
 
+    - name: Copy Dockerfile
+      copy: src=Dockerfile dest=/tmp/path/
+      
+   - name: build dockerfile
+     docker_image:
+      path: /tmp/path/
+      name: shaymaa12/nodeapp_ansible_try
+      tag: v1
+
+    # - name: Tag and push to docker hub
+    #   docker_image:
+    #     name: shaymaa12/nodeapp_ansible_try
+    #     repository: 
+    #     tag: v1
+    #     push: yes
+          
    # - name: Pull default Docker image
    #   docker_image:
    #     name: "{{ container_image }}"
