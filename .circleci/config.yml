@@ -7,7 +7,7 @@ jobs:
             - "6d:74:fa:05:28:84:73:d2:3b:2b:bf:cd:78:a2:6b:98"
   build:
     docker:
-      - image: aseelibrahim/docker-ansible:lts
+      - image: aseelibrahimm/docker-ansible:lts
     steps:
       - checkout
       - setup_remote_docker
